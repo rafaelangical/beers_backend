@@ -4,9 +4,8 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
 	create: function(req, res, next) {
-		
-		res.setHeader('Content-Type', 'application/json');
-		res.setHeader('Access-Control-Allow-Origin', '*');
+		//res.setHeader('Content-Type', 'application/json');
+		//res.setHeader('Access-Control-Allow-Origin', '*');
 		userModel.create({ name: req.body.name, email: req.body.email, password: req.body.password }, function (err, result) {
 			if (err) 
 				next(err);
