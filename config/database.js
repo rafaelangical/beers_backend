@@ -2,7 +2,6 @@
 console.log('in db config');
 const mongoose = require('mongoose');
 const mongoDB = 'mongodb://localhost/nodeapi';
-//const mongoDB = 'mongodb+srv://rafael:995400566@cluster0-6aqkl.mongodb.net/test?retryWrites=true&w=majority';
 mongoose.connect(mongoDB);
 mongoose.Promise = global.Promise;
 

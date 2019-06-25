@@ -4,34 +4,33 @@ const users = require('./routes/users');
 const bodyParser = require('body-parser');
 const mongoose = require('./config/database'); //database configuration
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 
-//const jwt = require('jsonwebtoken');
 const app = express();
-
-const port = process.env.PORT || 3333;
-
-const corsMiddleware = function(req, res, next) {
-  res.header('Access-Control-Allow-Origin', '*'); //replace localhost with actual host
-  res.header('Access-Control-Allow-Methods', 'OPTIONS, GET, PUT, PATCH, POST, DELETE');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With, Authorization');
-
-  next();
-}
-//app.use(cors);
-
-app.use(corsMiddleware);
-
+const port = 3333;
 
 app.set('secretKey', 'nodeRestApi'); // jwt secret token
-
 // connection to mongodb
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
+//app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(cors())
 
-// parse application/json
-app.use(bodyParser.json());
+// for parsing json
+app.use(
+  bodyParser.json({
+    limit: '20mb'
+  })
+)
+
+// for parsing application/x-www-form-urlencoded
+app.use(
+  bodyParser.urlencoded({
+    limit: '20mb',
+    extended: true
+  })
+)
 
 app.get('/', function(req, res){
   res.json({ "Error" : "Route not found" });
